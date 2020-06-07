@@ -1,0 +1,21 @@
+groups:
+
+- name: alpeh
+  rules:
+  - alert: httpd_down
+    expr: probe_success{instance="http://alpeh:80",job="httpd"} == 0
+    for: 1s
+    labels:
+      severity: critical
+    annotations:
+      summary: "httpd is down"
+
+- name: nginx
+  rules:
+  - alert: nginx_down
+    expr: probe_success{instance="http://worker:8080",job="nginx"} == 0
+    for: 1s
+    labels:
+      severity: warning
+    annotations:
+      summary: "nginx is down"
